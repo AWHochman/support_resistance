@@ -1,1 +1,1 @@
-# support_resistence
+# support_resistnce
