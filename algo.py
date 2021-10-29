@@ -19,9 +19,11 @@ class SupportResistence(bt.SignalStrategy):
         self.portfolio_value = 100000
         self.support = 300
         self.resistence = 400 
-        self.margin = .05
+        self.margin = .2
         self.clustering = Clustering()
         self.exchange_amt = .2
+        self.pp = btind.PivotPoint(self.data)
+        self.pp.plotinfo.plot = True
 
     def notify_order(self, order):
         if order.status in [bt.Order.Submitted, bt.Order.Accepted]:
@@ -58,14 +60,14 @@ def main():
     cerebro = bt.Cerebro()
 
     ma = bt.feeds.PandasData(
-        dataname=yf.download('MA', datetime(2021, 1, 1), datetime(2021, 1, 10)))
+        dataname=yf.download('MA', datetime(2021, 1, 1), datetime(2021, 6, 10)))
 
     cerebro.adddata(ma)
 
     cerebro.addstrategy(SupportResistence)
 
     cerebro.run()
-    # cerebro.plot()
+    cerebro.plot()
 
 
 if __name__ == '__main__':
